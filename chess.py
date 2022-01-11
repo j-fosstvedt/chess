@@ -1,3 +1,14 @@
+#import tkinter as tk
+
+from tkinter import *
+from PIL import ImageTk,Image
+root = Tk()
+canvas = Canvas(root, width = 1080, height = 1080)
+canvas.pack()
+img = ImageTk.PhotoImage(Image.open("horse.jpg"))
+canvas.create_image(270, 0, anchor=NW, image=img)
+root.mainloop()
+
 c = [[0 for i in range(8)] for i in range(8)]
 pawn, night, bishop, rook, queen, king = (1, 2, 3, 4, 5, 6)
 
