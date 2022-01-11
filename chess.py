@@ -1,24 +1,22 @@
-c = [[0 for i in range(10)] for i in range(10)]
-pawn, night, bishop, rook, queen, king, gap = (1, 2, 3, 4, 5, 6, 10)
-
-pieces = "PNBRQK"
+c = [[0 for i in range(8)] for i in range(8)]
+pawn, night, bishop, rook, queen, king = (1, 2, 3, 4, 5, 6)
 
 # Sets up the pieces
 def pieceSetup():
     # White pieces
-    c[0][0] = rook
-    c[0][1] = night
-    c[0][2] = bishop
-    c[0][3] = queen
-    c[0][4] = king
-    c[0][5] = bishop
-    c[0][6] = night
-    c[0][7] = rook
+    c[1][0] = rook
+    c[1][1] = night
+    c[1][2] = bishop
+    c[1][3] = queen
+    c[1][4] = king
+    c[1][5] = bishop
+    c[1][6] = night
+    c[1][7] = rook
 
     # Pawns
     i = 0
     while i < 8:
-        c[6][i] = pawn
+        c[1][i] = pawn
         i += 1
 
     # Black pieces
@@ -34,18 +32,8 @@ def pieceSetup():
     # Pawns
     i = 0
     while i < 8:
-        c[1][i] = pawn
+        c[6][i] = pawn
         i += 1
-
-    # Gap
-    c[9][0] = gap
-    c[0][8] = gap
-
-pieceSetup()
-i = 7
-while i > -1:
-    print(c[i])
-    i -= 1
 
 def movePiece():
     moveFromString = input("Piece to move: ")
@@ -65,9 +53,12 @@ def movePiece():
     c[xMoveTo][yMoveTo] = c[xMoveFrom][yMoveFrom]
     c[xMoveFrom][yMoveFrom] = 0
 
+pieceSetup()
+
+# Play the game
 while True:
-    movePiece()
     i = 7
     while i > -1:
         print(c[i])
         i -= 1
+    movePiece()
