@@ -1,16 +1,26 @@
-#import tkinter as tk
-
 from tkinter import *
 from PIL import ImageTk,Image
+
+width = 1080
+widthPerPiece = width / 8
+
 root = Tk()
-canvas = Canvas(root, width = 1080, height = 1080)
+canvas = Canvas(root, width = width, height = width)
 canvas.pack()
 img = ImageTk.PhotoImage(Image.open("horse.jpg"))
-canvas.create_image(270, 0, anchor=NW, image=img)
-root.mainloop()
 
 c = [[0 for i in range(8)] for i in range(8)]
 pawn, night, bishop, rook, queen, king = (1, 2, 3, 4, 5, 6)
+
+def translateXCoord(xCoord):
+    xCoordInPixels = xCoord * widthPerPiece
+    translatedXCoord = xCoordInPixels
+    return translatedXCoord
+
+def translateYCoord(yCoord):
+    yCoordInPixels = (yCoord + 1) * widthPerPiece
+    translatedYCoord = width - yCoordInPixels
+    return translatedYCoord
 
 # Sets up the pieces
 def pieceSetup():
@@ -53,16 +63,19 @@ def movePiece():
 
     # Find the piece to move
     moveFromLetter = moveFromString[0]
-    yMoveFrom = int(rows.find(moveFromLetter))
-    xMoveFrom = int(moveFromString[1]) - 1
+    xMoveFrom = int(rows.find(moveFromLetter))
+    yMoveFrom = int(moveFromString[1]) - 1
 
     # Find where to move the piece
     moveToLetter = moveToString[0]
-    yMoveTo = int(rows.find(moveToLetter))
-    xMoveTo = int(moveToString[1]) - 1
+    xMoveTo = int(rows.find(moveToLetter))
+    yMoveTo = int(moveToString[1]) - 1
 
-    c[xMoveTo][yMoveTo] = c[xMoveFrom][yMoveFrom]
-    c[xMoveFrom][yMoveFrom] = 0
+    c[yMoveTo][xMoveTo] = c[yMoveFrom][xMoveFrom]
+    c[yMoveFrom][xMoveFrom] = 0
+
+    # Draw the picture
+    canvas.create_image(translateXCoord(xMoveTo), translateYCoord(yMoveTo), anchor=NW, image=img)
 
 pieceSetup()
 
