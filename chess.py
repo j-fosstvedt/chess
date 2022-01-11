@@ -62,4 +62,3 @@ while True:
         print(c[i])
         i -= 1
     movePiece()
-#test
