@@ -4,14 +4,14 @@ pawn, night, bishop, rook, queen, king = (1, 2, 3, 4, 5, 6)
 # Sets up the pieces
 def pieceSetup():
     # White pieces
-    c[1][0] = rook
-    c[1][1] = night
-    c[1][2] = bishop
-    c[1][3] = queen
-    c[1][4] = king
-    c[1][5] = bishop
-    c[1][6] = night
-    c[1][7] = rook
+    c[0][0] = rook
+    c[0][1] = night
+    c[0][2] = bishop
+    c[0][3] = queen
+    c[0][4] = king
+    c[0][5] = bishop
+    c[0][6] = night
+    c[0][7] = rook
 
     # Pawns
     i = 0
