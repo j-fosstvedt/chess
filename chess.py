@@ -16,6 +16,9 @@ whiteSquareImage = ImageTk.PhotoImage(Image.open("whiteSquare.png"))
 c = [[0 for i in range(8)] for i in range(8)]
 pawn, night, bishop, rook, queen, king = (1, 2, 3, 4, 5, 6)
 
+def spawnImage(xCoord, yCoord, img):
+    canvas.create_image(translateXCoord(xCoord), translateYCoord(yCoord), anchor=NW, image=img)
+
 def spawnSquare(xCoord, yCoord):
     if yCoord % 2 == 0:
         if xCoord % 2 == 0:
@@ -47,7 +50,8 @@ def squareSetup():
             spawnSquare(i-1, j)
             j += 1
 
-squareSetup()
+def pieceImageSetup():
+    spawnImage()
 
 # Sets up the pieces
 def pieceSetup():
@@ -105,6 +109,7 @@ def movePiece():
     canvas.create_image(translateXCoord(xMoveTo), translateYCoord(yMoveTo), anchor=NW, image=knightImage)
     spawnSquare(xMoveFrom, yMoveFrom)
 
+squareSetup()
 pieceSetup()
 
 # Play the game
