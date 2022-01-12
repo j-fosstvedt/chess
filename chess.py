@@ -90,7 +90,7 @@ def movePiece():
 
     # Draw the picture
     canvas.create_image(translateXCoord(xMoveTo), translateYCoord(yMoveTo), anchor=NW, image=night)
-#    spawnSquare(xMoveFrom, yMoveFrom)
+    spawnSquare(xMoveFrom, yMoveFrom)
 
 pieceSetup()
 
