@@ -1,17 +1,31 @@
 from tkinter import *
 from PIL import ImageTk,Image
 
-width = 1080
+width = 720
 widthPerPiece = width / 8
 
 root = Tk()
 canvas = Canvas(root, width = width, height = width)
 canvas.pack()
-img = ImageTk.PhotoImage(Image.open("horse.jpg"))
+night = ImageTk.PhotoImage(Image.open("horse.jpg"))
+blackSquare = ImageTk.PhotoImage(Image.open("blackSquare.png"))
+whiteSquare = ImageTk.PhotoImage(Image.open("whiteSquare.png"))
 
 c = [[0 for i in range(8)] for i in range(8)]
 pawn, night, bishop, rook, queen, king = (1, 2, 3, 4, 5, 6)
 
+def spawnSquare(xCoord, yCoord):
+    if yCoord % 2 == 0:
+        if xCoord % 2 == 0:
+            canvas.create_image(translateXCoord(translateXCoord(xCoord)), translateYCoord(translateYCoord(yCoord)), anchor=NW, image=whiteSquare)
+        elif xCoord % 2 != 0:
+            canvas.create_image(translateXCoord(translateXCoord(xCoord)), translateYCoord(translateYCoord(yCoord)), anchor=NW, image=blackSquare)
+    elif yCoord % 2 != 0:
+        if xCoord % 2 != 0:
+            canvas.create_image(translateXCoord(translateXCoord(xCoord)), translateYCoord(translateYCoord(yCoord)), anchor=NW, image=whiteSquare)
+        elif xCoord % 2 == 0:
+            canvas.create_image(translateXCoord(translateXCoord(xCoord)), translateYCoord(translateYCoord(yCoord)), anchor=NW, image=blackSquare)
+            
 def translateXCoord(xCoord):
     xCoordInPixels = xCoord * widthPerPiece
     translatedXCoord = xCoordInPixels
@@ -75,7 +89,8 @@ def movePiece():
     c[yMoveFrom][xMoveFrom] = 0
 
     # Draw the picture
-    canvas.create_image(translateXCoord(xMoveTo), translateYCoord(yMoveTo), anchor=NW, image=img)
+    canvas.create_image(translateXCoord(xMoveTo), translateYCoord(yMoveTo), anchor=NW, image=night)
+#    spawnSquare(xMoveFrom, yMoveFrom)
 
 pieceSetup()
 
