@@ -7,9 +7,11 @@ widthPerPiece = width / 8
 root = Tk()
 canvas = Canvas(root, width = width, height = width)
 canvas.pack()
-night = ImageTk.PhotoImage(Image.open("horse.jpg"))
-blackSquare = ImageTk.PhotoImage(Image.open("blackSquare.png"))
-whiteSquare = ImageTk.PhotoImage(Image.open("whiteSquare.png"))
+
+
+knightImage = ImageTk.PhotoImage(Image.open("horse.jpg"))
+blackSquareImage = ImageTk.PhotoImage(Image.open("blackSquare.png"))
+whiteSquareImage = ImageTk.PhotoImage(Image.open("whiteSquare.png"))
 
 c = [[0 for i in range(8)] for i in range(8)]
 pawn, night, bishop, rook, queen, king = (1, 2, 3, 4, 5, 6)
@@ -17,14 +19,14 @@ pawn, night, bishop, rook, queen, king = (1, 2, 3, 4, 5, 6)
 def spawnSquare(xCoord, yCoord):
     if yCoord % 2 == 0:
         if xCoord % 2 == 0:
-            canvas.create_image(translateXCoord(translateXCoord(xCoord)), translateYCoord(translateYCoord(yCoord)), anchor=NW, image=whiteSquare)
+            canvas.create_image(translateXCoord(xCoord), translateYCoord(yCoord), anchor=NW, image=blackSquareImage)
         elif xCoord % 2 != 0:
-            canvas.create_image(translateXCoord(translateXCoord(xCoord)), translateYCoord(translateYCoord(yCoord)), anchor=NW, image=blackSquare)
+            canvas.create_image(translateXCoord(xCoord), translateYCoord(yCoord), anchor=NW, image=whiteSquareImage)
     elif yCoord % 2 != 0:
         if xCoord % 2 != 0:
-            canvas.create_image(translateXCoord(translateXCoord(xCoord)), translateYCoord(translateYCoord(yCoord)), anchor=NW, image=whiteSquare)
+            canvas.create_image(translateXCoord(xCoord), translateYCoord(yCoord), anchor=NW, image=blackSquareImage)
         elif xCoord % 2 == 0:
-            canvas.create_image(translateXCoord(translateXCoord(xCoord)), translateYCoord(translateYCoord(yCoord)), anchor=NW, image=blackSquare)
+            canvas.create_image(translateXCoord(xCoord), translateYCoord(yCoord), anchor=NW, image=whiteSquareImage)
             
 def translateXCoord(xCoord):
     xCoordInPixels = xCoord * widthPerPiece
@@ -35,6 +37,17 @@ def translateYCoord(yCoord):
     yCoordInPixels = (yCoord + 1) * widthPerPiece
     translatedYCoord = width - yCoordInPixels
     return translatedYCoord
+
+def squareSetup():
+    i = 0
+    while i < len(c):
+        i += 1
+        j = 0
+        while j < len(c):
+            spawnSquare(i-1, j)
+            j += 1
+
+squareSetup()
 
 # Sets up the pieces
 def pieceSetup():
@@ -89,7 +102,7 @@ def movePiece():
     c[yMoveFrom][xMoveFrom] = 0
 
     # Draw the picture
-    canvas.create_image(translateXCoord(xMoveTo), translateYCoord(yMoveTo), anchor=NW, image=night)
+    canvas.create_image(translateXCoord(xMoveTo), translateYCoord(yMoveTo), anchor=NW, image=knightImage)
     spawnSquare(xMoveFrom, yMoveFrom)
 
 pieceSetup()
