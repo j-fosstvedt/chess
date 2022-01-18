@@ -163,7 +163,7 @@ while True:
         movePiece()
     except:
         while True:
-            print("\n\n\n\n\n")
+            print("\n\n\n")
             continueMessage = input('You cannot and shall not do that, you fool! \nWould you please write "I am dumb and foolish, and shall never do that unresponsible and stupid action again" to continue? ')
             if continueMessage == "I am dumb and foolish, and shall never do that unresponsible and stupid action again":
                 break
